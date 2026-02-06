@@ -3,221 +3,233 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmartSneaker | Pro Edition</title>
+    <title>SmartSneaker | Modular Tech</title>
     <style>
+        /* DESIGN SYSTEM - INSPIRADO NAS IMAGENS 2 E 3 */
         :root {
             --neon: #00ff88;
-            --dark: #0a0a0a;
-            --card: #151515;
-            --gray: #252525;
+            --dark-bg: #050505;
+            --glass: rgba(20, 20, 20, 0.85);
+            --border: rgba(0, 255, 136, 0.3);
+            --text: #ffffff;
         }
 
         body {
-            background-color: var(--dark);
-            color: white;
-            font-family: 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--dark-bg);
+            background-image: radial-gradient(circle at 50% 50%, #111 0%, #050505 100%);
+            color: var(--text);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
             margin: 0;
-            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* Header Estilo Imagem 3 */
-        .main-header {
+        /* HEADER PROFISSIONAL */
+        .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 5%;
-            background: rgba(0,0,0,0.9);
-            border-bottom: 2px solid var(--neon);
+            padding: 1.5rem 5%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
         }
 
-        .logo { font-size: 24px; font-weight: bold; }
-        .logo span { color: var(--neon); }
+        .logo { font-size: 1.8rem; font-weight: 800; }
+        .logo span { color: var(--neon); text-shadow: 0 0 15px var(--neon); }
 
         .nav-links a {
             color: white;
             text-decoration: none;
-            margin-left: 20px;
-            font-size: 14px;
-            text-transform: uppercase;
-        }
-
-        /* Layout Principal: Divisão Lado a Lado */
-        .main-container {
-            display: grid;
-            grid-template-columns: 1fr 1.5fr; /* Lado esquerdo menor, direito imagem maior */
-            gap: 20px;
-            max-width: 1400px;
-            margin: 40px auto;
-            padding: 20px;
-            align-items: center;
-        }
-
-        /* Formulário Lado Esquerdo */
-        .config-card {
-            background: var(--card);
-            padding: 30px;
-            border-radius: 15px;
-            border: 1px solid var(--neon);
-            box-shadow: 0 0 20px rgba(0, 255, 136, 0.1);
-        }
-
-        h1 { font-size: 28px; margin-bottom: 20px; }
-
-        .input-group { margin-bottom: 20px; }
-        label { display: block; margin-bottom: 8px; color: #aaa; }
-        
-        input, select {
-            width: 100%;
-            padding: 12px;
-            background: var(--gray);
-            border: 1px solid #444;
-            color: white;
-            border-radius: 8px;
-            box-sizing: border-box;
-        }
-
-        .btn-calculate {
-            width: 100%;
-            padding: 15px;
-            background: var(--neon);
-            color: black;
-            border: none;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 16px;
-            cursor: pointer;
+            margin-left: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
             transition: 0.3s;
         }
 
-        .btn-calculate:hover { background: #00cc6e; transform: scale(1.02); }
+        .nav-links a:hover { color: var(--neon); }
 
-        /* Imagem Lado Direito */
-        .product-image {
-            position: relative;
-            text-align: right;
+        /* LAYOUT EM DUAS COLUNAS */
+        .container {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 40px;
+            padding: 40px 5%;
+            max-width: 1400px;
+            margin: auto;
+            align-items: start;
         }
 
-        .product-image img {
+        /* PAINEL DE CONTROLE (ESQUERDA) */
+        .control-panel {
+            background: var(--glass);
+            padding: 30px;
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        .input-group { margin-bottom: 25px; }
+        label { display: block; margin-bottom: 10px; color: #888; font-size: 0.9rem; }
+        
+        input, select {
             width: 100%;
-            max-width: 800px;
-            border-radius: 20px;
-            filter: drop-shadow(0 0 30px rgba(0, 255, 136, 0.2));
-        }
-
-        /* Balão de Resultado que aparece sobre a imagem */
-        #result-overlay {
-            position: absolute;
-            bottom: 30px;
-            left: 20px;
-            background: rgba(0,0,0,0.8);
-            border-left: 5px solid var(--neon);
-            padding: 20px;
-            border-radius: 10px;
-            display: none;
-        }
-
-        .history-box {
-            margin-top: 20px;
             padding: 15px;
             background: #111;
-            border-radius: 8px;
-            font-size: 12px;
+            border: 1px solid #333;
+            color: white;
+            border-radius: 12px;
+            box-sizing: border-box;
+            transition: 0.3s;
         }
 
-        .log-item { border-bottom: 1px solid #222; padding: 5px 0; color: var(--neon); }
+        input:focus { border-color: var(--neon); outline: none; box-shadow: 0 0 10px rgba(0, 255, 136, 0.2); }
 
-        @media (max-width: 900px) {
-            .main-container { grid-template-columns: 1fr; }
+        .btn-action {
+            width: 100%;
+            padding: 18px;
+            background: var(--neon);
+            color: black;
+            border: none;
+            border-radius: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+        }
+
+        .btn-action:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0, 255, 136, 0.3); }
+
+        /* AREA DO PRODUTO (DIREITA) */
+        .display-area {
+            position: relative;
+            background: rgba(255,255,255,0.02);
+            border-radius: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 500px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .main-sneaker-img {
+            width: 90%;
+            max-width: 700px;
+            filter: drop-shadow(0 0 50px rgba(0, 255, 136, 0.15));
+            transition: 0.5s ease;
+        }
+
+        /* ANOTAÇÕES DINÂMICAS */
+        .label-tag {
+            position: absolute;
+            background: rgba(0,0,0,0.7);
+            border: 1px solid var(--neon);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: var(--neon);
+            pointer-events: none;
+        }
+
+        #tag-molas { top: 20%; right: 25%; }
+        #tag-palmilha { top: 45%; left: 35%; }
+
+        /* HISTÓRICO - LINHAGEM DE DADOS */
+        .history-list { margin-top: 30px; border-top: 1px solid #222; padding-top: 20px; }
+        .history-item { font-size: 0.8rem; color: #666; padding: 5px 0; border-bottom: 1px solid #111; }
+
+        @media (max-width: 1000px) {
+            .container { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <header class="main-header">
+    <header class="header">
         <div class="logo">Smart<span>Sneaker</span></div>
         <nav class="nav-links">
             <a href="#">Home</a>
             <a href="#">Métricas</a>
-            <a href="dashboard.html">Dashboard</a>
-            <span style="border: 1px solid #444; padding: 5px 10px; border-radius: 5px; margin-left: 20px;">Online</span>
+            <a href="#">Dashboard</a>
         </nav>
     </header>
 
-    <div class="main-container">
-        <section class="config-card">
-            <h1>Modularize seu SmartSneaker</h1>
+    <div class="container">
+        <aside class="control-panel">
+            <h2 style="margin-top:0">Modularize seu Par</h2>
             
             <div class="input-group">
-                <label>Peso Corporal (kg)</label>
-                <input type="number" id="user-weight" placeholder="Ex: 75">
+                <label>Peso do Usuário (kg)</label>
+                <input type="number" id="userWeight" placeholder="Ex: 85">
             </div>
 
             <div class="input-group">
-                <label>Nível de Corrida</label>
-                <select id="run-level">
-                    <option value="iniciante">Iniciante</option>
-                    <option value="pro">Pro / Performance</option>
+                <label>Nível de Performance</label>
+                <select id="runLevel">
+                    <option value="Iniciante">Iniciante / Casual</option>
+                    <option value="Pro">Pro / Performance</option>
                 </select>
             </div>
 
-            <button class="btn-calculate" onclick="SneakerApp.calculate()">Calcular Tênis Ideal</button>
+            <button class="btn-action" onclick="App.updateSneaker()">Calcular Tênis Ideal</button>
 
-            <div class="history-box">
-                <p>HISTÓRICO RECENTE:</p>
-                <div id="history-list"></div>
+            <div class="history-list">
+                <p style="font-size: 0.7rem; letter-spacing: 1px;">HISTÓRICO DE CONFIGURAÇÕES</p>
+                <div id="historyEntries"></div>
             </div>
-        </section>
+        </aside>
 
-        <section class="product-image">
-            <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?q=80&w=1200" alt="SmartSneaker">
+        <main class="display-area">
+            <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?q=80&w=1200" alt="SmartSneaker" class="main-sneaker-img" id="sneakerImg">
             
-            <div id="result-overlay">
-                <h3 style="margin:0; color: var(--neon);">Configuração Gerada:</h3>
-                <p id="result-text" style="margin: 10px 0 0 0;"></p>
-            </div>
-        </section>
+            <div class="label-tag" id="tag-molas">Molas Ativas</div>
+            <div class="label-tag" id="tag-palmilha">Palmilha Bio-Sensing</div>
+        </main>
     </div>
 
     <script>
-        const SneakerApp = {
-            calculate() {
-                const peso = document.getElementById('user-weight').value;
-                const nivel = document.getElementById('run-level').value;
-                const overlay = document.getElementById('result-overlay');
-                const resultText = document.getElementById('result-text');
+        const App = {
+            updateSneaker() {
+                const weight = document.getElementById('userWeight').value;
+                const level = document.getElementById('runLevel').value;
 
-                if (!peso) return alert("Por favor, informe o peso.");
+                if (!weight) return alert("Por favor, insira o peso.");
 
-                // Lógica de Modulação
-                let mola = peso > 90 ? "Molas de Titânio (Alta Rigidez)" : "Molas Pneumáticas (Média)";
-                let palmilha = nivel === "pro" ? "Fibra de Carbono" : "Gel Ergonômico";
+                // Lógica de Modulação (Full-Stack Simulado)
+                const config = {
+                    mola: weight > 90 ? "Titânio G5" : "Pneumática Air-Flow",
+                    tecnologia: level === "Pro" ? "Carbon-Fiber V2" : "Gel-Comfort",
+                    timestamp: new Date().toLocaleTimeString()
+                };
 
-                // Exibe na tela
-                resultText.innerHTML = `⚙️ ${mola}<br>👣 ${palmilha}`;
-                overlay.style.display = "block";
+                // Feedback Visual
+                document.getElementById('tag-molas').innerText = `⚙️ ${config.mola}`;
+                document.getElementById('tag-palmilha').innerText = `👣 ${config.tecnologia}`;
+                
+                // Animação da Imagem
+                const img = document.getElementById('sneakerImg');
+                img.style.transform = "scale(1.05) rotate(-2deg)";
+                setTimeout(() => img.style.transform = "scale(1) rotate(0deg)", 500);
 
-                // Linhagem de Dados (Banco de Dados Local)
-                this.saveHistory(peso, nivel, mola);
+                this.saveToHistory(weight, level, config.mola);
             },
 
-            saveHistory(p, n, m) {
-                let history = JSON.parse(localStorage.getItem('ss_data')) || [];
-                const entry = { date: new Date().toLocaleTimeString(), peso: p, nivel: n };
-                
-                history.unshift(entry);
-                localStorage.setItem('ss_data', JSON.stringify(history.slice(0, 3)));
+            saveToHistory(p, n, m) {
+                let logs = JSON.parse(localStorage.getItem('sneaker_db')) || [];
+                logs.unshift({p, n, m, t: new Date().toLocaleTimeString()});
+                localStorage.setItem('sneaker_db', JSON.stringify(logs.slice(0, 4)));
                 this.renderHistory();
             },
 
             renderHistory() {
-                const list = document.getElementById('history-list');
-                const data = JSON.parse(localStorage.getItem('ss_data')) || [];
-                list.innerHTML = data.map(i => `<div class="log-item">${i.date} - ${i.peso}kg - ${i.nivel}</div>`).join('');
+                const container = document.getElementById('historyEntries');
+                const logs = JSON.parse(localStorage.getItem('sneaker_db')) || [];
+                container.innerHTML = logs.map(l => `<div class="history-item">${l.t} - ${l.p}kg - ${l.m}</div>`).join('');
             }
         };
 
-        // Carregar histórico ao iniciar
-        window.onload = () => SneakerApp.renderHistory();
+        window.onload = () => App.renderHistory();
     </script>
 </body>
 </html>
