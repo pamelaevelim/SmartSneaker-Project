@@ -3,67 +3,221 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmartSneaker | Tech Customizer</title>
-    <link rel="stylesheet" href="style.css">
+    <title>SmartSneaker | Pro Edition</title>
+    <style>
+        :root {
+            --neon: #00ff88;
+            --dark: #0a0a0a;
+            --card: #151515;
+            --gray: #252525;
+        }
+
+        body {
+            background-color: var(--dark);
+            color: white;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header Estilo Imagem 3 */
+        .main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            background: rgba(0,0,0,0.9);
+            border-bottom: 2px solid var(--neon);
+        }
+
+        .logo { font-size: 24px; font-weight: bold; }
+        .logo span { color: var(--neon); }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        /* Layout Principal: Divisão Lado a Lado */
+        .main-container {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr; /* Lado esquerdo menor, direito imagem maior */
+            gap: 20px;
+            max-width: 1400px;
+            margin: 40px auto;
+            padding: 20px;
+            align-items: center;
+        }
+
+        /* Formulário Lado Esquerdo */
+        .config-card {
+            background: var(--card);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid var(--neon);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.1);
+        }
+
+        h1 { font-size: 28px; margin-bottom: 20px; }
+
+        .input-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; color: #aaa; }
+        
+        input, select {
+            width: 100%;
+            padding: 12px;
+            background: var(--gray);
+            border: 1px solid #444;
+            color: white;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+
+        .btn-calculate {
+            width: 100%;
+            padding: 15px;
+            background: var(--neon);
+            color: black;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-calculate:hover { background: #00cc6e; transform: scale(1.02); }
+
+        /* Imagem Lado Direito */
+        .product-image {
+            position: relative;
+            text-align: right;
+        }
+
+        .product-image img {
+            width: 100%;
+            max-width: 800px;
+            border-radius: 20px;
+            filter: drop-shadow(0 0 30px rgba(0, 255, 136, 0.2));
+        }
+
+        /* Balão de Resultado que aparece sobre a imagem */
+        #result-overlay {
+            position: absolute;
+            bottom: 30px;
+            left: 20px;
+            background: rgba(0,0,0,0.8);
+            border-left: 5px solid var(--neon);
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .history-box {
+            margin-top: 20px;
+            padding: 15px;
+            background: #111;
+            border-radius: 8px;
+            font-size: 12px;
+        }
+
+        .log-item { border-bottom: 1px solid #222; padding: 5px 0; color: var(--neon); }
+
+        @media (max-width: 900px) {
+            .main-container { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
+
     <header class="main-header">
         <div class="logo">Smart<span>Sneaker</span></div>
-        <nav>
-            <ul class="nav-links">
-                <li><a href="index.html" class="active">Home</a></li>
-                <li><a href="#customizer">Configurador</a></li>
-                <li><a href="dashboard.html">Dashboard</a></li>
-            </ul>
+        <nav class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">Métricas</a>
+            <a href="dashboard.html">Dashboard</a>
+            <span style="border: 1px solid #444; padding: 5px 10px; border-radius: 5px; margin-left: 20px;">Online</span>
         </nav>
-        <div class="user-status">
-            <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?q=10&w=50" alt="Produto" class="mini-thumb">
-            <span id="conn-status">Online</span>
-        </div>
     </header>
 
-    <main>
-        <section class="hero">
-            <h1>O Tênis do Futuro, <br>Modularizado por Você.</h1>
-            <p>Integração total entre Biomecânica e Engenharia de Software.</p>
+    <div class="main-container">
+        <section class="config-card">
+            <h1>Modularize seu SmartSneaker</h1>
+            
+            <div class="input-group">
+                <label>Peso Corporal (kg)</label>
+                <input type="number" id="user-weight" placeholder="Ex: 75">
+            </div>
+
+            <div class="input-group">
+                <label>Nível de Corrida</label>
+                <select id="run-level">
+                    <option value="iniciante">Iniciante</option>
+                    <option value="pro">Pro / Performance</option>
+                </select>
+            </div>
+
+            <button class="btn-calculate" onclick="SneakerApp.calculate()">Calcular Tênis Ideal</button>
+
+            <div class="history-box">
+                <p>HISTÓRICO RECENTE:</p>
+                <div id="history-list"></div>
+            </div>
         </section>
 
-       <section id="customizer" class="config-container">
-    <div class="form-side">
-        <h2 style="color: var(--neon)">Modularize Seu SmartSneaker</h2>
-        <div class="input-box">
-            <label>Peso Corporal (kg)</label>
-            <input type="number" id="peso" placeholder="75">
-        </div>
-        <div class="input-box">
-            <label>Nível de Performance</label>
-            <select id="nivel">
-                <option value="Iniciante">Iniciante</option>
-                <option value="Pro">Pro / Performance</option>
-            </select>
-        </div>
-        <button onclick="SneakerEngine.modularizar()" class="btn-main">Gerar Configuração Ideal</button>
-        
-        <div id="historico-secao" style="margin-top: 30px;">
-            <p style="font-size: 0.8rem; color: #888;">PESQUISAS RECENTES:</p>
-            <div id="lista-historico"></div>
-        </div>
-    </div>
-
-    <div class="visual-side">
-        <div class="sneaker-display">
-            <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?q=80&w=800" alt="SmartSneaker Pro" style="width: 100%; border-radius: 20px;">
+        <section class="product-image">
+            <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?q=80&w=1200" alt="SmartSneaker">
             
-            <div id="overlay-result" class="hidden">
-                <h4 style="margin:0">✓ Configuração Ativa</h4>
-                <p id="txt-molas"></p>
-                <p id="txt-palmilha"></p>
+            <div id="result-overlay">
+                <h3 style="margin:0; color: var(--neon);">Configuração Gerada:</h3>
+                <p id="result-text" style="margin: 10px 0 0 0;"></p>
             </div>
-        </div>
+        </section>
     </div>
-</section>
-    </main>
 
-    <script src="script.js"></script>
+    <script>
+        const SneakerApp = {
+            calculate() {
+                const peso = document.getElementById('user-weight').value;
+                const nivel = document.getElementById('run-level').value;
+                const overlay = document.getElementById('result-overlay');
+                const resultText = document.getElementById('result-text');
+
+                if (!peso) return alert("Por favor, informe o peso.");
+
+                // Lógica de Modulação
+                let mola = peso > 90 ? "Molas de Titânio (Alta Rigidez)" : "Molas Pneumáticas (Média)";
+                let palmilha = nivel === "pro" ? "Fibra de Carbono" : "Gel Ergonômico";
+
+                // Exibe na tela
+                resultText.innerHTML = `⚙️ ${mola}<br>👣 ${palmilha}`;
+                overlay.style.display = "block";
+
+                // Linhagem de Dados (Banco de Dados Local)
+                this.saveHistory(peso, nivel, mola);
+            },
+
+            saveHistory(p, n, m) {
+                let history = JSON.parse(localStorage.getItem('ss_data')) || [];
+                const entry = { date: new Date().toLocaleTimeString(), peso: p, nivel: n };
+                
+                history.unshift(entry);
+                localStorage.setItem('ss_data', JSON.stringify(history.slice(0, 3)));
+                this.renderHistory();
+            },
+
+            renderHistory() {
+                const list = document.getElementById('history-list');
+                const data = JSON.parse(localStorage.getItem('ss_data')) || [];
+                list.innerHTML = data.map(i => `<div class="log-item">${i.date} - ${i.peso}kg - ${i.nivel}</div>`).join('');
+            }
+        };
+
+        // Carregar histórico ao iniciar
+        window.onload = () => SneakerApp.renderHistory();
+    </script>
 </body>
 </html>
