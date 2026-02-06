@@ -82,3 +82,70 @@ input, select {
 }
 
 .hidden { display: none; }
+/* Estilos Específicos do Dashboard */
+.dashboard-layout {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 30px 5%;
+}
+
+.dashboard-card {
+    background-color: var(--card-bg);
+    border: 1px solid #2a2a2a;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 20px rgba(0, 255, 136, 0.05);
+}
+
+.dashboard-card h2 {
+    color: var(--neon);
+    margin-top: 0;
+    border-bottom: 1px solid #333;
+    padding-bottom: 15px;
+}
+
+.status-indicator {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    display: inline-block;
+}
+.status-indicator.connected { background-color: var(--neon); box-shadow: 0 0 15px var(--neon); }
+.status-indicator.disconnected { background-color: #ff3333; box-shadow: 0 0 15px #ff3333; }
+
+.metric-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.metric-grid div h3 {
+    color: #ccc;
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+.metric-grid div p {
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: var(--text);
+}
+
+.chart-card {
+    grid-column: span 2; /* Faz o gráfico ocupar duas colunas em telas maiores */
+    background: #1e1e1e;
+    padding: 20px;
+}
+
+/* Responsividade básica */
+@media (max-width: 768px) {
+    .dashboard-layout {
+        grid-template-columns: 1fr;
+    }
+    .chart-card {
+        grid-column: span 1;
+    }
+}
