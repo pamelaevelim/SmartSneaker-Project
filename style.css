@@ -1,151 +1,66 @@
+/* style.css - UI REFORMULADA */
 :root {
     --neon: #00ff88;
-    --dark-bg: #0a0a0a;
-    --card-bg: #161616;
-    --text: #ffffff;
+    --dark-deep: #050505;
+    --card-bg: rgba(25, 25, 25, 0.8);
+    --text-main: #e0e0e0;
+    --gradient: linear-gradient(135deg, #00ff88 0%, #00a35f 100%);
 }
-
-
 
 body {
-    background-color: var(--dark-bg);
-    color: var(--text);
-    font-family: 'Segoe UI', sans-serif;
+    background-color: var(--dark-deep);
+    background-image: radial-gradient(circle at 50% 50%, #111 0%, #050505 100%);
+    color: var(--text-main);
+    font-family: 'Inter', 'Segoe UI', sans-serif;
     margin: 0;
+    overflow-x: hidden;
 }
 
+/* Header com Efeito Blur */
 .main-header {
     display: flex;
     justify-content: space-between;
-    padding: 20px 5%;
-    background: rgba(0,0,0,0.8);
-    backdrop-filter: blur(10px);
+    align-items: center;
+    padding: 1.5rem 5%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(0, 255, 136, 0.2);
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 1000;
 }
 
-.logo span { color: var(--neon); font-weight: bold; }
+.logo { font-size: 1.5rem; font-weight: 800; letter-spacing: -1px; }
+.logo span { color: var(--neon); text-shadow: 0 0 10px rgba(0, 255, 136, 0.5); }
 
+/* Grid de Customização igual à imagem */
 .config-container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1.2fr;
     gap: 40px;
-    padding: 50px 5%;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    align-items: center;
 }
 
 .form-side {
     background: var(--card-bg);
-    padding: 30px;
-    border-radius: 20px;
-    border: 1px solid #333;
+    padding: 40px;
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
 }
 
-.input-box { margin-bottom: 20px; }
-input, select {
-    width: 100%;
-    padding: 12px;
-    background: #222;
-    border: 1px solid #444;
-    color: white;
-    border-radius: 8px;
-}
-
+/* Botão Neon */
 .btn-main {
-    width: 100%;
-    padding: 15px;
-    background: var(--neon);
+    background: var(--gradient);
+    color: #000;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 18px;
     border: none;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 8px;
-    transition: 0.3s;
-}
-
-.sneaker-display {
-    position: relative;
-    border-radius: 20px;
-    overflow: hidden;
-}
-
-.sneaker-display img { width: 100%; display: block; }
-
-#overlay-result {
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-    right: 20px;
-    background: rgba(0, 255, 136, 0.9);
-    color: black;
-    padding: 20px;
     border-radius: 12px;
-}
-
-.hidden { display: none; }
-/* Estilos Específicos do Dashboard */
-.dashboard-layout {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    padding: 30px 5%;
-}
-
-.dashboard-card {
-    background-color: var(--card-bg);
-    border: 1px solid #2a2a2a;
-    border-radius: 15px;
-    padding: 25px;
-    box-shadow: 0 5px 20px rgba(0, 255, 136, 0.05);
-}
-
-.dashboard-card h2 {
-    color: var(--neon);
-    margin-top: 0;
-    border-bottom: 1px solid #333;
-    padding-bottom: 15px;
-}
-
-.status-indicator {
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    margin-bottom: 15px;
-    display: inline-block;
-}
-.status-indicator.connected { background-color: var(--neon); box-shadow: 0 0 15px var(--neon); }
-.status-indicator.disconnected { background-color: #ff3333; box-shadow: 0 0 15px #ff3333; }
-
-.metric-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    gap: 20px;
-    margin-top: 20px;
-    text-align: center;
-}
-
-.metric-grid div h3 {
-    color: #ccc;
-    font-size: 1rem;
-    margin-bottom: 5px;
-}
-.metric-grid div p {
-    font-size: 2.2rem;
-    font-weight: bold;
-    color: var(--text);
-}
-
-.chart-card {
-    grid-column: span 2; /* Faz o gráfico ocupar duas colunas em telas maiores */
-    background: #1e1e1e;
-    padding: 20px;
-}
-
-/* Responsividade básica */
-@media (max-width: 768px) {
-    .dashboard-layout {
-        grid-template-columns: 1fr;
-    }
-    .chart-card {
-        grid-column: span 1;
-    }
-}
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
