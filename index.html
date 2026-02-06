@@ -2,39 +2,67 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>SmartSneaker | Inovação Sob Medida</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartSneaker | Tech Customizer</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
+    <header class="main-header">
+        <div class="logo">Smart<span>Sneaker</span></div>
         <nav>
-            <div class="logo">Smart<span>Sneaker</span></div>
-            <ul>
-                <li>Home</li>
-                <li>Tecnologia</li>
-                <li>Modelos</li>
-                <button class="btn-scan">INICIAR ESCANEAMENTO 3D</button>
-                <div class="product-thumb">
-        <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?q=10&w=150" alt="SmartSneaker Thumb" class="low-res-img">
-    </div>
-    
-    <nav class="action-menu">
-        <button class="nav-btn" onclick="filterView('performance')">Performance</button>
-        <button class="nav-btn" onclick="filterView('conforto')">Conforto</button>
-        <button class="nav-btn active" onclick="comprar()">Configurar Agora</button>
-    </nav>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="#customizer">Configurador</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
             </ul>
         </nav>
+        <div class="user-status">
+            <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?q=10&w=50" alt="Produto" class="mini-thumb">
+            <span id="conn-status">Online</span>
+        </div>
     </header>
 
-    <main class="hero">
-        <div class="product-card">
-            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff" alt="Tênis Smart">
-            <h1>Nexus Pro V1</h1>
-            <p>Modulação Ativa: Molas de Polímero de Carbono</p>
-            <span class="price">R$ 1.299,00</span>
-            <button onclick="comprar()">Personalizar Agora</button>
-        </div>
+    <main>
+        <section class="hero">
+            <h1>O Tênis do Futuro, <br>Modularizado por Você.</h1>
+            <p>Integração total entre Biomecânica e Engenharia de Software.</p>
+        </section>
+
+        <section id="customizer" class="config-container">
+            <div class="form-side">
+                <h2>Configure seu Perfil</h2>
+                <div class="input-box">
+                    <label>Peso Corporal (kg)</label>
+                    <input type="number" id="peso" placeholder="Ex: 80">
+                </div>
+                <div class="input-box">
+                    <label>Nível de Atividade</label>
+                    <select id="nivel">
+                        <option value="Iniciante">Iniciante / Hobby</option>
+                        <option value="Pro">Pro / Performance</option>
+                    </select>
+                </div>
+                <button onclick="SneakerEngine.modularizar()" class="btn-main">Gerar Tênis Ideal</button>
+
+                <div id="historico-secao">
+                    <h3>Últimas Configurações</h3>
+                    <div id="lista-historico"></div>
+                </div>
+            </div>
+
+            <div class="visual-side">
+                <div class="sneaker-display">
+                    <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?q=80&w=600" alt="SmartSneaker">
+                    <div id="overlay-result" class="hidden">
+                        <div class="badge">Configuração Gerada!</div>
+                        <p id="txt-molas"></p>
+                        <p id="txt-palmilha"></p>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
+
+    <script src="script.js"></script>
 </body>
 </html>
