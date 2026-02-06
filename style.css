@@ -1,0 +1,9 @@
+body { font-family: 'Segoe UI', sans-serif; background: #0f0f0f; color: white; }
+nav { display: flex; justify-content: space-around; padding: 20px; align-items: center; }
+.logo { font-size: 24px; font-weight: bold; }
+.logo span { color: #00ff88; }
+.hero { display: flex; justify-content: center; height: 80vh; align-items: center; }
+.product-card { background: #1a1a1a; padding: 30px; border-radius: 20px; text-align: center; border: 1px solid #333; }
+.product-card img { width: 300px; border-radius: 10px; transition: 0.3s; }
+.product-card img:hover { transform: scale(1.05); }
+.btn-scan { background: #00ff88; border: none; padding: 10px 20px; border-radius: 5px; font-weight: bold; cursor: pointer; }
