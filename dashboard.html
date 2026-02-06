@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartSneaker | Dashboard de Performance</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header class="main-header">
+        <div class="logo">Smart<span>Sneaker</span></div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#customizer">Configurador</a></li>
+                <li><a href="dashboard.html" class="active">Dashboard</a></li>
+            </ul>
+        </nav>
+        <div class="user-status">
+            <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?q=10&w=50" alt="Produto" class="mini-thumb">
+            <span id="conn-status">Conectado</span>
+        </div>
+    </header>
+
+    <main class="dashboard-layout">
+        <section class="dashboard-card status-card">
+            <h2>Status do SmartSneaker</h2>
+            <div class="status-indicator connected"></div>
+            <p id="connection-message">Sensor Ativo - Transmitindo Dados</p>
+            <button class="btn-secondary" onclick="Dashboard.toggleConnection()">Desconectar</button>
+        </section>
+
+        <section class="dashboard-card metric-display">
+            <h2>Métricas Atuais</h2>
+            <div class="metric-grid">
+                <div>
+                    <h3>Passos</h3>
+                    <p id="total-steps">0</p>
