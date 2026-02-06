@@ -1,107 +1,54 @@
-function comprar() {
-    let peso = prompt("..."); // Para a execução do navegador
-    // ... lógica simples ...
-    alert("..."); // Apenas exibe, não armazena
-}
-// Função para salvar o histórico de configurações do usuário
-function salvarHistorico(peso, nivel, recomendacao) {
-    // Busca o histórico existente ou cria um novo array
-    let historico = JSON.parse(localStorage.getItem('sneaker_history')) || [];
+const SneakerEngine = {
+    // Simulação de Banco de Dados Local
+    db: {
+        save(dados) {
+            let historico = JSON.parse(localStorage.getItem('ss_history')) || [];
+            historico.unshift(dados); // Novo dado no topo
+            localStorage.setItem('ss_history', JSON.stringify(historico.slice(0, 5)));
+        },
+        load() {
+            return JSON.parse(localStorage.getItem('ss_history')) || [];
+        }
+    },
 
-    const novaPesquisa = {
-        data: new Date().toLocaleString(),
-        peso: peso,
-        nivel: nivel,
-        config: recomendacao
-    };
+    modularizar() {
+        const peso = parseFloat(document.getElementById('peso').value);
+        const nivel = document.getElementById('nivel').value;
 
-    historico.push(novaPesquisa);
-    
-    // Salva de volta no "Banco de Dados" do navegador
-    localStorage.setItem('sneaker_history', JSON.stringify(historico));
-    exibirHistorico();
-}
+        if (!peso) return alert("Insira o seu peso para o cálculo biomecânico.");
 
-// Função para exibir o que o sistema "lembrou"
-function exibirHistorico() {
-    const logContainer = document.getElementById('user-log');
-    let historico = JSON.parse(localStorage.getItem('sneaker_history')) || [];
-    
-    if (logContainer) {
-        logContainer.innerHTML = historico.map(item => `
-            <div class="log-item">
-                <span>${item.data}:</span> Peso ${item.peso}kg - <strong>${item.nivel}</strong>
+        // Lógica de Engenharia do Produto
+        const config = {
+            id: Date.now(),
+            data: new Date().toLocaleDateString(),
+            molas: peso > 90 ? "Titânio G5 (Alta Rigidez)" : "Pneumáticas Air-Flow",
+            palmilha: nivel === "Pro" ? "Carbon Fiber Bio-Tech" : "Gel Confort Ergonômico",
+            pesoInput: peso,
+            nivelInput: nivel
+        };
+
+        this.exibirResultado(config);
+        this.db.save(config);
+        this.renderHistorico();
+    },
+
+    exibirResultado(c) {
+        document.getElementById('overlay-result').classList.remove('hidden');
+        document.getElementById('txt-molas').innerHTML = `⚙️ <b>Molas:</b> ${c.molas}`;
+        document.getElementById('txt-palmilha').innerHTML = `👣 <b>Palmilha:</b> ${c.palmilha}`;
+    },
+
+    renderHistorico() {
+        const container = document.getElementById('lista-historico');
+        const dados = this.db.load();
+        
+        container.innerHTML = dados.map(item => `
+            <div class="log-entry">
+                <small>${item.data}</small> - ${item.pesoInput}kg (${item.nivelInput})
             </div>
         `).join('');
     }
-}
+};
 
-// Atualizando sua função comprar para salvar os dados
-function comprar() {
-    let peso = prompt("Para modular sua mola, informe seu peso (kg):");
-    let nivel = prompt("Nível de corrida (Iniciante/Pro):");
-    let rec = "";
-    
-    if (peso > 90) {
-        rec = "Molas de Titânio + Palmilha Ergonômica";
-    } else {
-        rec = "Molas Pneumáticas + Palmilha de Conforto";
-    }
-
-    alert(`Configuração Recomendada: ${rec}`);
-    salvarHistorico(peso, nivel, rec);
-}
-
-// Carregar histórico ao abrir a página
-document.addEventListener('DOMContentLoaded', exibirHistorico);
-// Função para salvar o histórico de configurações do usuário
-function salvarHistorico(peso, nivel, recomendacao) {
-    // Busca o histórico existente ou cria um novo array
-    let historico = JSON.parse(localStorage.getItem('sneaker_history')) || [];
-
-    const novaPesquisa = {
-        data: new Date().toLocaleString(),
-        peso: peso,
-        nivel: nivel,
-        config: recomendacao
-    };
-
-    historico.push(novaPesquisa);
-    
-    // Salva de volta no "Banco de Dados" do navegador
-    localStorage.setItem('sneaker_history', JSON.stringify(historico));
-    exibirHistorico();
-}
-
-// Função para exibir o que o sistema "lembrou"
-function exibirHistorico() {
-    const logContainer = document.getElementById('user-log');
-    let historico = JSON.parse(localStorage.getItem('sneaker_history')) || [];
-    
-    if (logContainer) {
-        logContainer.innerHTML = historico.map(item => `
-            <div class="log-item">
-                <span>${item.data}:</span> Peso ${item.peso}kg - <strong>${item.nivel}</strong>
-            </div>
-        `).join('');
-    }
-}
-
-// Atualizando sua função comprar para salvar os dados
-function comprar() {
-    let peso = prompt("Para modular sua mola, informe seu peso (kg):");
-    let nivel = prompt("Nível de corrida (Iniciante/Pro):");
-    let rec = "";
-    
-    if (peso > 90) {
-        rec = "Molas de Titânio + Palmilha Ergonômica";
-    } else {
-        rec = "Molas Pneumáticas + Palmilha de Conforto";
-    }
-
-    alert(`Configuração Recomendada: ${rec}`);
-    salvarHistorico(peso, nivel, rec);
-}
-
-// Carregar histórico ao abrir a página
-document.addEventListener('DOMContentLoaded', exibirHistorico);
+// Inicialização ao carregar a página
+document.addEventListener('DOMContentLoaded', () => SneakerEngine.renderHistorico());
