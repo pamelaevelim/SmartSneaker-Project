@@ -19,7 +19,7 @@ body {
 /* Header com Efeito Blur */
 .main-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
     padding: 1.5rem 5%;
     background: rgba(0, 0, 0, 0.7);
